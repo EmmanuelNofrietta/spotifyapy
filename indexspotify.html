@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Artists</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .artist {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .artist img {
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .artist-info {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Artistas de Spotify</h1>
+    <div id="artists"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = {
+                "artists": {
+                    "items": [
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/0kbYTNQb4Pb1rPbbaF0pT4"
+                            },
+                            "followers": {
+                                "total": 2528411
+                            },
+                            "genres": [
+                                "cool jazz",
+                                "hard bop",
+                                "jazz",
+                                "jazz fusion",
+                                "jazz trumpet",
+                                "soul",
+                                "vocal jazz"
+                            ],
+                            "images": [
+                                {
+                                    "url": "https://i.scdn.co/image/423e826b3c1b23930a255d7cbc2daf733f795507",
+                                }
+                            ],
+                            "name": "Miles Davis",
+                            "popularity": 60,
+                        },
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/2hGh5VOeeqimQFxqXvfCUf"
+                            },
+                            "followers": {
+                                "total": 1646829
+                            },
+                            "genres": [
+                                "bebop",
+                                "free jazz",
+                                "jazz",
+                                "jazz saxophone",
+                                "vocal jazz"
+                            ],
+                            "images": [
+                                {
+                                    "url": "https://i.scdn.co/image/ab6761610000e5eb73c7f7505c1af82929ec41df",
+                                }
+                            ],
+                            "name": "John Coltrane",
+                            "popularity": 61,
+                        },
+                        {
+                            "external_urls": {
+                                "spotify": "https://open.spotify.com/artist/4sQVPSDmfqIxG9W8o2EROX"
+                            },
+                            "followers": {
+                                "total": 101159
+                            },
+                            "genres": [
+                                "bebop",
+                                "jazz",
+                                "jazz quartet"
+                            ],
+                            "images": [
+                                {
+                                    "url": "https://i.scdn.co/image/ab67616d0000b27364351626df25d938db9b9f2f",
+                                }
+                            ],
+                            "name": "Miles Davis Quartet",
+                            "popularity": 32,
+                        },
+                        // Añade más artistas aquí según el JSON proporcionado.
+                    ]
+                }
+            };
+
+            const artistsContainer = document.getElementById('artists');
+
+            data.artists.items.forEach(artist => {
+                const artistDiv = document.createElement('div');
+                artistDiv.className = 'artist';
+
+                const artistImage = document.createElement('img');
+                artistImage.src = artist.images[0].url;
+                artistImage.alt = artist.name;
+                artistImage.width = 100;
+                artistImage.height = 100;
+                artistDiv.appendChild(artistImage);
+
+                const artistInfo = document.createElement('div');
+                artistInfo.className = 'artist-info';
+
+                const artistName = document.createElement('h2');
+                artistName.textContent = artist.name;
+                artistInfo.appendChild(artistName);
+
+                const artistFollowers = document.createElement('p');
+                artistFollowers.textContent = `Seguidores: ${artist.followers.total}`;
+                artistInfo.appendChild(artistFollowers);
+
+                const artistGenres = document.createElement('p');
+                artistGenres.textContent = `Géneros: ${artist.genres.join(', ')}`;
+                artistInfo.appendChild(artistGenres);
+
+                const artistPopularity = document.createElement('p');
+                artistPopularity.textContent = `Popularidad: ${artist.popularity}`;
+                artistInfo.appendChild(artistPopularity);
+
+                const artistLink = document.createElement('a');
+                artistLink.href = artist.external_urls.spotify;
+                artistLink.textContent = 'Ver en Spotify';
+                artistLink.target = '_blank';
+                artistInfo.appendChild(artistLink);
+
+                artistDiv.appendChild(artistInfo);
+                artistsContainer.appendChild(artistDiv);
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
